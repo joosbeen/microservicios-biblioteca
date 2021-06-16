@@ -1,0 +1,306 @@
+### Servicio Libros
+spring.application.name=servicio-libros
+server.port=8081
+
+### Servicio Usuarios
+spring.application.name=servicio-usuarios
+server.port=8082
+
+### Servicio Prestamos
+spring.application.name=servicio-prestamos
+server.port=8083
+
+
+### 
+### Libros
+### 
+
+	"nombre":"Don Quijote de La Mancha I",
+	"editorial":"Anaya",
+	"autor":"Miguel de Cervantes",
+	"genero":"Caballeresco",
+	"paisAutor":"España",
+	"numPaginas":517,
+	"fechaEdicion":1991,
+	"precio":2750
+
+	"nombre":"Don Quijote de La Mancha II.0",
+	"editorial":"Anaya",
+	"autor":"Miguel de Cervantes",
+	"genero":"Caballeresco",
+	"paisAutor":"España",
+	"numPaginas":611,
+	"fechaEdicion":1991,
+	"precio":3125
+
+	"nombre":"Historias de Nueva Orleans",
+	"editorial":"Alfaguara",
+	"autor":"William Faulkner",
+	"genero":"Novela",
+	"paisAutor":"Estados Unidos",
+	"numPaginas":186,
+	"fechaEdicion":1985,
+	"precio":675
+
+	"nombre":"El principito",
+	"editorial":"Andina",
+	"autor":"Antoine Saint-Exupery",
+	"genero":"Aventura",
+	"paisAutor":"Francia",
+	"numPaginas":120,
+	"fechaEdicion":1996,
+	"precio":750
+
+	"nombre":"El príncipe",
+	"editorial":"S.M.",
+	"autor":"Maquiavelo",
+	"genero":"Político",
+	"paisAutor":"Italia",
+	"numPaginas":210,
+	"fechaEdicion":1995,
+	"precio":1125
+
+	"nombre":"Diplomacia",
+	"editorial":"S.M.",
+	"autor":"Henry Kissinger",
+	"genero":"Político",
+	"paisAutor":"Alemania",
+	"numPaginas":825,
+	"fechaEdicion":1997,
+	"precio":1750
+
+	"nombre":"El Último Emperador",
+	"editorial":"Caralt",
+	"autor":"Pu-Yi",
+	"genero":"Autobiografías",
+	"paisAutor":"China",
+	"numPaginas":353,
+	"fechaEdicion":1989,
+	"precio":995
+
+
+	"nombre":
+	"editorial":
+	"autor":
+	"genero":
+	"paisAutor":
+	"numPaginas":
+	"fechaEdicion":
+	"precio":
+
+###
+### Usuarios
+###
+
+	"nombre":"Inés",
+	"apellidos":"Posadas Gil",
+	"identificacion":"42.117.892-S",
+	"domicilio":"Av. Escaleritas 12",
+	"poblacion":"Las Palmas G.C.",
+	"provincia":"Las Palmas",
+	"fechaNacimiento":"4/7/71"
+
+	"nombre":"José",
+	"apellidos":"Sánchez Pons",
+	"identificacion":"31.765.348-D",
+	"domicilio":"Mesa y López 51",
+	"poblacion":"Las Palmas G.C.",
+	"provincia":"Las Palmas",
+	"fechaNacimiento":"1966-06-09"
+
+	"nombre":"Miguel",
+	"apellidos":"Gómez Sáez",
+	"identificacion":"11.542-981-G",
+	"domicilio":"Gran Vía 71",
+	"poblacion":"Madrid",
+	"provincia":"Madrid",
+	"fechaNacimiento":"1976-09-12"
+
+	"nombre":"Yolanda",
+	"apellidos":"Betancor Díaz",
+	"identificacion":"44.312.870-Z",
+	"domicilio":"El Cid 45",
+	"poblacion":"Miranda de Ebro",
+	"provincia":"Burgos",
+	"fechaNacimiento":"1976-17-09"
+
+	"nombre":"Juan Luis",
+	"apellidos":"Blasco Pita",
+	"identificacion":"47.234.471-P",
+	"domicilio":"Jaime I, 65",
+	"poblacion":"Alcira",
+	"provincia":"Valencia",
+	"fechaNacimiento":"1982-01-03"
+
+	"nombre":,
+	"apellidos":,
+	"identificacion":,
+	"domicilio":,
+	"poblacion":,
+	"provincia":,
+	"fechaNacimiento":,
+
+### 
+### Prestamos
+### 
+
+	"libro":"",
+	"usuario":"",
+	"fechaSalida":"",
+	"fechaMaxima":"",
+	"fechaDevolucion":"" 
+
+	"libro":{
+		"id":1,
+		"nombre":"Don Quijote de La Mancha I",
+		"editorial":"Anaya",
+		"autor":"Miguel de Cervantes",
+		"genero":"Caballeresco",
+		"paisAutor":"España",
+		"numPaginas":517,
+		"fechaEdicion":1991,
+		"precio":2750
+	},
+	"usuario":{
+		"id":3,
+		"nombre":"Inés",
+		"apellidos":"Posadas Gil",
+		"identificacion":"42.117.892-S",
+		"domicilio":"Av. Escaleritas 12",
+		"poblacion":"Las Palmas G.C.",
+		"provincia":"Las Palmas",
+		"fechaNacimiento":"1971-04-07"
+	},
+	"fechaSalida":"1999-01-11",
+	"fechaMaxima":"1999-15-11",
+	"fechaDevolucion":"1999-13-11" 
+
+	INSERT INTO prestamos(fecha_devolucion, fecha_maxima, fecha_salida, libro_id, usuario_id) 
+	VALUES ("1999-01-11", "1999-11-15", "1999-11-13", 1, 3);
+
+
+	"libro":{
+		"id":3,
+	},
+	"usuario":{
+		"id":2
+	},
+	"fechaSalida":"1999-03-11",
+	"fechaMaxima":"1999-20-11",
+	"fechaDevolucion":"1999-22-11" 
+
+	INSERT INTO prestamos(fecha_devolucion, fecha_maxima, fecha_salida, libro_id, usuario_id) 
+	VALUES ("1999-03-11", "1999-11-20", "1999-11-22", 3, 2);
+
+	"libro":{
+		"id":2,
+		"nombre":"José",
+		"apellidos":"Sánchez Pons",
+		"identificacion":"31.765.348-D",
+		"domicilio":"Mesa y López 51",
+		"poblacion":"Las Palmas G.C.",
+		"provincia":"Las Palmas",
+		"fechaNacimiento":"1966-06-08"
+	},
+	"usuario":{
+		"id":5,
+		"nombre":"El príncipe",
+		"editorial":"S.M.",
+		"autor":"Maquiavelo",
+		"genero":"Político",
+		"paisAutor":"Italia",
+		"numPaginas":210,
+		"fechaEdicion":1995,
+		"precio":1125.0
+	},
+	"fechaSalida":"1999-11-18",
+	"fechaMaxima":"1999-11-30",
+	"fechaDevolucion":"1999-11-25" 
+
+	INSERT INTO prestamos(fecha_devolucion, fecha_maxima, fecha_salida, libro_id, usuario_id) 
+	VALUES ("1999-03-11", "1999-20-11", "1999-22-11", 3, 2);
+
+
+
+	"libro":{
+		    "id": 2,
+		    "nombre": "Don Quijote de La Mancha II.0",
+		    "editorial": "Anaya",
+		    "autor": "Miguel de Cervantes",
+		    "genero": "Caballeresco",
+		    "paisAutor": "España",
+		    "numPaginas": 611,
+		    "fechaEdicion": 1991,
+		    "precio": 3125.0
+	},
+	"usuario":{
+	    "id": 5,
+	    "nombre": "Juan Luis",
+	    "apellidos": "Blasco Pita",
+	    "identificacion": "47.234.471-P",
+	    "domicilio": "Jaime I, 65",
+	    "poblacion": "Alcira",
+	    "provincia": "Valencia",
+	    "fechaNacimiento": "1982-01-02"
+	},
+	"fechaSalida":"1999-11-18",
+	"fechaMaxima":"1999-11-30",
+	"fechaDevolucion":"1999-11-25" 
+
+
+	"libro":{
+    "id": 5,
+    "nombre": "El príncipe",
+    "editorial": "S.M.",
+    "autor": "Maquiavelo",
+    "genero": "Político",
+    "paisAutor": "Italia",
+    "numPaginas": 210,
+    "fechaEdicion": 1995,
+    "precio": 1125.0
+},
+	"usuario":{
+    "id": 5,
+    "nombre": "Juan Luis",
+    "apellidos": "Blasco Pita",
+    "identificacion": "47.234.471-P",
+    "domicilio": "Jaime I, 65",
+    "poblacion": "Alcira",
+    "provincia": "Valencia",
+    "fechaNacimiento": "1982-01-02"
+},
+	"fechaSalida":"1999-11-21",
+	"fechaMaxima":"1999-12-03",
+	"fechaDevolucion":"1999-12-05" 
+
+
+	"libro":"",
+	"usuario":"",
+	"fechaSalida":"",
+	"fechaMaxima":"",
+	"fechaDevolucion":"" 
+
+	"libro":"",
+	"usuario":"",
+	"fechaSalida":"",
+	"fechaMaxima":"",
+	"fechaDevolucion":"" 
+
+	"libro":"",
+	"usuario":"",
+	"fechaSalida":"",
+	"fechaMaxima":"",
+	"fechaDevolucion":"" 
+
+	"libro":"",
+	"usuario":"",
+	"fechaSalida":"",
+	"fechaMaxima":"",
+	"fechaDevolucion":"" 
+
+	"libro":"",
+	"usuario":"",
+	"fechaSalida":"",
+	"fechaMaxima":"",
+	"fechaDevolucion":"" 
+
