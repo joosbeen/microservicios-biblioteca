@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -135,4 +136,18 @@ public class UsuarioRestController {
         logger.info("El usuario se actulizao");
         return ResponseEntity.ok(_usuario);
     }
+
+    @GetMapping(value = "/search/buscar-username")
+    public ResponseEntity<Usuario> findByUsername(@RequestParam(name = "username") String username) {
+
+        Usuario usuarios = usuarioService.findByUsername(username);
+
+        if (usuarios == null) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No se encontro ningun registro.");
+        }
+
+        logger.info("Busqueda exitosa.");
+        return ResponseEntity.ok(usuarios);
+    }
+    
 }
