@@ -32,11 +32,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 		
 		http.authorizeRequests().antMatchers("/api/security/oauth/**").permitAll()
-		.antMatchers(HttpMethod.GET, "/api/productos/", "/api/items/", "/api/usuarios/usuarios").permitAll()
-		.antMatchers(HttpMethod.GET, "/api/productos/{id}", 
-				"/api/items/{id}/{cantidad}", 
-				"/api/usuarios/usuarios/{id}").hasAnyRole("ADMIN", "USER")
-		.antMatchers("/api/productos/**", "/api/items/**", "/api/usuarios/**").hasRole("ADMIN")
+		.antMatchers(HttpMethod.GET, "/api/libros/", "/api/prestamos/", "/api/usuarios/").permitAll()
+		.antMatchers(HttpMethod.GET, "/api/libros/{id}", "/api/prestamos/{id}", "/api/usuarios/{id}").hasAnyRole("ADMIN", "USER")
+		.antMatchers("/api/libros/**", "/api/prestamos/**", "/api/usuarios/**").hasRole("ADMIN")
 		.anyRequest()
 		.authenticated()
 		.and()
