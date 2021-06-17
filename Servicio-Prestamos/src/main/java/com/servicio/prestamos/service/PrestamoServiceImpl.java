@@ -35,7 +35,7 @@ public class PrestamoServiceImpl implements PrestamoService {
 
     @Override
     public Prestamo findById(Long id) {
-        return prestamoRepository.getById(id);
+        return prestamoRepository.findById(id).orElse(null);
     }
 
     @Override

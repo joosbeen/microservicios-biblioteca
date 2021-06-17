@@ -60,7 +60,7 @@ public class PrestamoRestController {
         return ResponseEntity.ok(_prestamo);
     }
     
-    @GetMapping(name = "/")
+    @GetMapping("/")
     public ResponseEntity<List<Prestamo>> findAll(){
     	
     	List<Prestamo> _prestamos = prestamoService.findAll();
@@ -73,7 +73,7 @@ public class PrestamoRestController {
     	return ResponseEntity.ok(_prestamos);
     }
     
-    @GetMapping(name = "/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Prestamo> findById(@PathVariable(name = "id") Long id){
     	
     	Prestamo _prestamo = prestamoService.findById(id);
