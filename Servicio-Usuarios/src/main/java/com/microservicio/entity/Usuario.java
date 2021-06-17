@@ -1,13 +1,21 @@
 package com.microservicio.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.UniqueConstraint;
@@ -17,145 +25,222 @@ import javax.validation.constraints.NotEmpty;
  *
  * @author benito
  */
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Entity
-@Table(name = "usuarios", uniqueConstraints = @UniqueConstraint(columnNames = {"identificacion"}))
+@Table(name = "usuarios", uniqueConstraints = @UniqueConstraint(columnNames = { "identificacion" }))
 public class Usuario implements Serializable {
-    /**
-     * 
-    * @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    */
+	/**
+	 * 
+	 * @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	 */
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @NotEmpty(message = "El campo nombre es obligatorio")
-    private String nombre;
+	@NotEmpty(message = "El campo nombre es obligatorio")
+	private String nombre;
 
-    @NotEmpty(message = "El campo apellidos es obligatorio")
-    private String apellidos;
+	@NotEmpty(message = "El campo apellidos es obligatorio")
+	private String apellidos;
 
-    @NotEmpty(message = "El campo identificacion es obligatorio")
-    private String identificacion;
+	@NotEmpty(message = "El campo identificacion es obligatorio")
+	private String identificacion;
 
-    @NotEmpty(message = "El campo domicilio es obligatorio")
-    private String domicilio;
+	@NotEmpty(message = "El campo domicilio es obligatorio")
+	private String domicilio;
 
-    @NotEmpty(message = "El campo poblacion es obligatorio")
-    private String poblacion;
+	@NotEmpty(message = "El campo poblacion es obligatorio")
+	private String poblacion;
 
-    @NotEmpty(message = "El campo provincia es obligatorio")
-    private String provincia;
+	@NotEmpty(message = "El campo provincia es obligatorio")
+	private String provincia;
 
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date fechaNacimiento;
+	@Temporal(javax.persistence.TemporalType.DATE)
+	private Date fechaNacimiento;
+	@Column(unique = true, length = 20)
+	private String username;
 
-    public Usuario() {
-    }
+	@Column(length = 60)
+	private String password;
 
-    public Usuario(Long id, String nombre, String apellidos, String identificacion, String domicilio, String poblacion, String provincia, Date fechaNacimiento) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.identificacion = identificacion;
-        this.domicilio = domicilio;
-        this.poblacion = poblacion;
-        this.provincia = provincia;
-        this.fechaNacimiento = fechaNacimiento;
-    }
+	@Column(unique = true, length = 100)
+	private String email;
 
-    public Long getId() {
-        return id;
-    }
+	private boolean enabled;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "role_id"), uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "usuario_id", "role_id" }) })
+	private List<Rol> roles;
 
-    public String getNombre() {
-        return nombre;
-    }
+	private Integer intentos;
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public Usuario() {
+	}
 
-    public String getApellidos() {
-        return apellidos;
-    }
+	public Usuario(Long id, String nombre, String apellidos, String identificacion, String domicilio, String poblacion,
+			String provincia, Date fechaNacimiento, String username, String password, String email, boolean enabled,
+			List<com.microservicio.entity.Rol> roles, Integer intentos) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.identificacion = identificacion;
+		this.domicilio = domicilio;
+		this.poblacion = poblacion;
+		this.provincia = provincia;
+		this.fechaNacimiento = fechaNacimiento;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.enabled = enabled;
+		this.roles = roles;
+		this.intentos = intentos;
+	}
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getIdentificacion() {
-        return identificacion;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setIdentificacion(String identificacion) {
-        this.identificacion = identificacion;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public String getDomicilio() {
-        return domicilio;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public void setDomicilio(String domicilio) {
-        this.domicilio = domicilio;
-    }
+	public String getApellidos() {
+		return apellidos;
+	}
 
-    public String getPoblacion() {
-        return poblacion;
-    }
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
 
-    public void setPoblacion(String poblacion) {
-        this.poblacion = poblacion;
-    }
+	public String getIdentificacion() {
+		return identificacion;
+	}
 
-    public String getProvincia() {
-        return provincia;
-    }
+	public void setIdentificacion(String identificacion) {
+		this.identificacion = identificacion;
+	}
 
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
-    }
+	public String getDomicilio() {
+		return domicilio;
+	}
 
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
+	public void setDomicilio(String domicilio) {
+		this.domicilio = domicilio;
+	}
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
+	public String getPoblacion() {
+		return poblacion;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        return hash;
-    }
+	public void setPoblacion(String poblacion) {
+		this.poblacion = poblacion;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Usuario other = (Usuario) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
-    }
+	public String getProvincia() {
+		return provincia;
+	}
 
-    @Override
-    public String toString() {
-        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", identificacion=" + identificacion + ", domicilio=" + domicilio + ", poblacion=" + poblacion + ", provincia=" + provincia + ", fechaNacimiento=" + fechaNacimiento + '}';
-    }
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public List<Rol> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Rol> roles) {
+		this.roles = roles;
+	}
+
+	public Integer getIntentos() {
+		return intentos;
+	}
+
+	public void setIntentos(Integer intentos) {
+		this.intentos = intentos;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 5;
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Usuario other = (Usuario) obj;
+		if (!Objects.equals(this.id, other.id)) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", identificacion="
+				+ identificacion + ", domicilio=" + domicilio + ", poblacion=" + poblacion + ", provincia=" + provincia
+				+ ", fechaNacimiento=" + fechaNacimiento + ", username=" + username + ", password=" + password
+				+ ", email=" + email + ", enabled=" + enabled + ", roles=" + roles + ", intentos=" + intentos + "]";
+	}
 
 }

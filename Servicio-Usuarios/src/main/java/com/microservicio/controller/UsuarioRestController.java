@@ -4,6 +4,9 @@ import com.microservicio.entity.Usuario;
 import com.microservicio.services.UsuarioService;
 import com.microservicio.util.FormValid;
 import java.util.List;
+
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -149,5 +152,26 @@ public class UsuarioRestController {
         logger.info("Busqueda exitosa.");
         return ResponseEntity.ok(usuarios);
     }
+    
+	@PutMapping("/{id}")
+	public ResponseEntity<Usuario> update(@RequestBody Usuario usuario, @PathVariable(name = "id") Long id) {
+		
+		Usuario _usuario = usuarioService.findById(id);
+		
+		if (_usuario == null) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+		
+		_usuario.setIntentos(usuario.getIntentos());
+		
+		_usuario = usuarioService.update(_usuario);
+
+		if (_usuario == null) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return ResponseEntity.ok(_usuario);
+		
+	}
     
 }
