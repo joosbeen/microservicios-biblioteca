@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -29,15 +27,15 @@ public class Prestamo implements Serializable {
     private Long id;
 
     /*@NotNull(message = "el campo libro es obligatorio.") 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})*/
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)*/
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "libro_id", nullable = false)
     private Libro libro;
 
     /*@NotNull(message = "el campo usuario es obligatorio.")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})*/
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)*/
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
