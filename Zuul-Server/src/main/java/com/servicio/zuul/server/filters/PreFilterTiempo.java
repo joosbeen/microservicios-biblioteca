@@ -32,7 +32,7 @@ public class PreFilterTiempo extends ZuulFilter {
 		
 		request.setAttribute("tiempoInicio", tiempoInicio);
 
-		log.info("%s request enrutado a %s", request.getMethod(), request.getRequestURL().toString());		
+		log.info(String.format("%s request enrutado a %s", request.getMethod(), request.getRequestURL().toString()));		
 		
 		return null;
 	}
