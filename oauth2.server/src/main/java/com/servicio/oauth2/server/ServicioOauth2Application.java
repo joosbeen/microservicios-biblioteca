@@ -10,7 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableFeignClients
 @EnableEurekaClient
-@SpringBootApplication(scanBasePackages = {"brave"})
+@SpringBootApplication(scanBasePackages = {"brave", "com.servicio.oauth2.server"})
 public class ServicioOauth2Application implements CommandLineRunner {
 	
 	@Autowired
