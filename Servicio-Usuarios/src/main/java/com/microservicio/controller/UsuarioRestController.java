@@ -142,33 +142,50 @@ public class UsuarioRestController {
 
     @GetMapping(value = "/search/buscar-username")
     public ResponseEntity<Usuario> findByUsername(@RequestParam(name = "username") String username) {
+    	
+    	logger.info("Buscando usuario por username");
 
-        Usuario usuarios = usuarioService.findByUsername(username);
-
-        if (usuarios == null) {
+        Usuario usuario = usuarioService.findByUsername(username);
+        
+        if (usuario == null) {
+        	logger.info("No se encontro ningun usuario con el username:" + username);
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No se encontro ningun registro.");
         }
 
         logger.info("Busqueda exitosa.");
-        return ResponseEntity.ok(usuarios);
+        return ResponseEntity.ok(usuario);
     }
     
 	@PutMapping("/{id}")
 	public ResponseEntity<Usuario> update(@RequestBody Usuario usuario, @PathVariable(name = "id") Long id) {
 		
+		logger.info("Actualizando el usuario con id:" + id);
+		
 		Usuario _usuario = usuarioService.findById(id);
 		
+		
 		if (_usuario == null) {
+			logger.info("No se encontro ningun usuario con el id:" + id);
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
-		
+
+        logger.info("<=============================>");
+        logger.info(_usuario.toString());
+        
 		_usuario.setIntentos(usuario.getIntentos());
+		
+
+        logger.info(_usuario.toString());
+        logger.info("<=============================>");
 		
 		_usuario = usuarioService.update(_usuario);
 
 		if (_usuario == null) {
+	        logger.info("No se realizo la actualizacion del usuario.");
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		
+		logger.info("Actulizacion exitosa.");
 		
 		return ResponseEntity.ok(_usuario);
 		
