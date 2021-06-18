@@ -45,9 +45,7 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 		log.info("=====> userDetails:" + userDetails.toString());
 
 		Usuario _usuario = usuarioService.findByUsername(authentication.getName());
-		
-		log.info("=====> userDetails:" + _usuario.toString());
-		
+				
 		
 		if (_usuario != null && _usuario.getIntentos()>0) {
 			_usuario.setIntentos(0);
