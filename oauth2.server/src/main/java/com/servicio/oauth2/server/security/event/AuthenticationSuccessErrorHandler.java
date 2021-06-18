@@ -26,7 +26,7 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 	private static final Logger log = LoggerFactory.getLogger(AuthenticationSuccessErrorHandler.class);
 	
 	@Autowired
-	private UsuarioService iUsuarioService; 
+	private UsuarioService usuarioService; 
 	
 	@Autowired
 	private Tracer tracer;
@@ -38,16 +38,23 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 	@Override
 	public void publishAuthenticationSuccess(Authentication authentication) {
 		
+		log.info("=====> Cargando autenticacion....");
+		
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		
+		log.info("=====> userDetails:" + userDetails.toString());
 
-		Usuario _usuario = iUsuarioService.findByUsername(authentication.getName());
+		Usuario _usuario = usuarioService.findByUsername(authentication.getName());
+		
+		log.info("=====> userDetails:" + _usuario.toString());
 		
 		
 		if (_usuario != null && _usuario.getIntentos()>0) {
 			_usuario.setIntentos(0);
-			iUsuarioService.update(_usuario, _usuario.getId());
+			usuarioService.update(_usuario, _usuario.getId());
 		}
-		String _msg = "Success Login:" + userDetails.getUsername();
+		
+		String _msg = "=====> Success Login:" + userDetails.getUsername();
 		
 		log.info(_msg);
 		System.out.println(_msg);
@@ -70,7 +77,7 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 			StringBuilder errors = new StringBuilder();
 			errors.append(_msg);
 			
-			Usuario _usuario = iUsuarioService.findByUsername(authentication.getName());
+			Usuario _usuario = usuarioService.findByUsername(authentication.getName());
 			
 			if (_usuario.getIntentos() == null) {
 				_usuario.setIntentos(0);
@@ -87,7 +94,7 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 				errors.append(String.format(" - El usuario %s des-habilitado por máximo de de intentos", _usuario.getUsername()));
 			}
 			
-			iUsuarioService.update(_usuario, _usuario.getId());
+			usuarioService.update(_usuario, _usuario.getId());
 			tracer.currentSpan().tag("error.message", errors.toString());
 			
 		} catch (Exception e) {
