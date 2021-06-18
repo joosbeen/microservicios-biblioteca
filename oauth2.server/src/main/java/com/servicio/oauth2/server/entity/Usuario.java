@@ -80,7 +80,8 @@ public class Usuario implements Serializable {
 	}
 
 	public Usuario(Long id, String nombre, String apellidos, String identificacion, String domicilio, String poblacion,
-			String provincia, Date fechaNacimiento) {
+			String provincia, Date fechaNacimiento, String username, String password, String email, boolean enabled,
+			List<Rol> roles, Integer intentos) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -89,6 +90,12 @@ public class Usuario implements Serializable {
 		this.poblacion = poblacion;
 		this.provincia = provincia;
 		this.fechaNacimiento = fechaNacimiento;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.enabled = enabled;
+		this.roles = roles;
+		this.intentos = intentos;
 	}
 
 	public Long getId() {
